@@ -1,9 +1,4 @@
-output "recovery_services_vault_id" {
-  value       = azurerm_recovery_services_vault.backup.id
-  description = "Resource ID of the Recovery Services Vault"
-}
-
-output "vm_backup_policy_id" {
-  value       = azurerm_backup_policy_vm.backup.id
-  description = "Resource ID of the VM backup policy"
+output "network_security_group_id" {
+  value       = azurerm_network_security_group.network.id
+  description = "Resource ID of the Network Security Group"
 }

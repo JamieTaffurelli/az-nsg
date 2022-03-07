@@ -1,14 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 2.95"
-    }
-  }
-
-  required_version = "~> 1.1.5"
-}
-
 data "azurerm_log_analytics_workspace" "logs" {
   name                = var.log_analytics_workspace_name
   resource_group_name = var.log_analytics_workspace_resource_group_name
@@ -21,7 +10,7 @@ data "azurerm_storage_account" "logs" {
 
 resource "azurerm_network_security_group" "network" {
   name                = var.network_security_group_name
-  resource_group_name = azurerm_resource_group.network.name
+  resource_group_name = var.resource_group_name
   location            = var.location
   tags                = var.tags
 }
@@ -73,18 +62,4 @@ resource "azurerm_network_watcher_flow_log" "network" {
     interval_in_minutes   = 10
   }
   tags = var.tags
-}
-
-resource "azurerm_network_security_rule" "network" {
-  name                        = "in-rdp"
-  priority                    = 100
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "3389"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
-  resource_group_name         = azurerm_resource_group.network.name
-  network_security_group_name = azurerm_network_security_group.network.name
 }
