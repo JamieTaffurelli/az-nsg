@@ -42,6 +42,7 @@ resource "azurerm_monitor_diagnostic_setting" "network_security_group_diagnostic
 }
 
 resource "azurerm_network_watcher_flow_log" "network" {
+  name                      = var.network_security_group_name
   network_watcher_name      = var.network_watcher_name
   resource_group_name       = var.network_watcher_resource_group_name
   network_security_group_id = azurerm_network_security_group.network.id
